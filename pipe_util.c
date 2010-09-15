@@ -18,25 +18,35 @@ void close_pipe(Pipe *p)
 	close(p->writer);
 }
 
-pid_t begin(const char *path, char  *const args[], Pipe *in, Pipe *out)
+pid_t begin(const char *path, char  *const args[], Channel *c)
 {
 	pid_t pid;
+	int in, out;
 
-	dup2(in->reader, STDIN_FILENO);
-	close(in->reader);
-	dup2(out->writer, STDOUT_FILENO);
-	close(out->writer);
+	if (recv(c, &in) == -1) {
+		fprintf(stderr, "begin: failed to recv input fd\");
+		return -1;
+	}
+	if (recv(c, &out) == -1) {
+		fprintf(stderr, "begin: failed to recv output fd\n");
+		return -1;
+	}
+
+	dup2(in, STDIN_FILENO);
+	close(in);
+	dup2(out, STDOUT_FILENO);
+	close(out);
 	
 	switch(pid = fork()) {
 	case 0:
 		if (execv(path,args) < 0) {
 			perror("begin");
-			exit(1);
+			return -1;
 		}
 		break;
 	case -1:
 		perror("begin");
-		exit(1);
+		return -1;
 		break;
 	default:
 		return pid;
