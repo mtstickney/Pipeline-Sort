@@ -3,14 +3,8 @@
 #include "pipe_util.h"
 #include "chan.h"
 
-Channel *mk_chan(size_t elsize)
+void mk_chan(Channel *c, size_t elsize)
 {
-	Channel *c;
-
-	c = (Channel *) malloc(sizeof(Channel));
-	if (c == NULL)
-		return NULL;
-
 	if (mk_pipe(&(c->data_chan)) != 0)
 		goto BAD_DATA_PIPE;
 	if (mk_pipe(&(c->barrier)) != 0)
@@ -21,7 +15,6 @@ Channel *mk_chan(size_t elsize)
 BAD_SYNCH_PIPE:
 	close_pipe(&(c->data_chan));
 BAD_DATA_PIPE:
-	free(c);
 	return NULL;
 }
 
