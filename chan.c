@@ -3,19 +3,19 @@
 #include "pipe_util.h"
 #include "chan.h"
 
-void mk_chan(Channel *c, size_t elsize)
+int mk_chan(Channel *c, size_t elsize)
 {
 	if (mk_pipe(&(c->data_chan)) != 0)
 		goto BAD_DATA_PIPE;
 	if (mk_pipe(&(c->barrier)) != 0)
 		goto BAD_SYNCH_PIPE;
 	c->elsize = elsize;
-	return c;
+	return 1;
 
 BAD_SYNCH_PIPE:
 	close_pipe(&(c->data_chan));
 BAD_DATA_PIPE:
-	return NULL;
+	return -1;
 }
 
 void free_chan(Channel *c)

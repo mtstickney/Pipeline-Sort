@@ -10,7 +10,7 @@ typedef struct chan
 	Pipe barrier;
 } Channel;
 
-void mk_chan(Channel *c, size_t elsize);
+int mk_chan(Channel *c, size_t elsize);
 
 void free_chan(Channel *c);
 
