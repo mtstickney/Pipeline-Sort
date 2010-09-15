@@ -32,10 +32,14 @@ pid_t begin(const char *path, char  *const args[], Channel *c)
 		return -1;
 	}
 
-	dup2(in, STDIN_FILENO);
-	close(in);
-	dup2(out, STDOUT_FILENO);
-	close(out);
+	if (in >= 0) {
+		dup2(in, STDIN_FILENO);
+		close(in);
+	}
+	if (out >= 0) {
+		dup2(out, STDOUT_FILENO);
+		close(out);
+	}
 	
 	switch(pid = fork()) {
 	case 0:
