@@ -22,10 +22,14 @@ pid_t begin(const char *path, char  *const args[], Pipe *in, Pipe *out)
 {
 	pid_t pid;
 
-	dup2(in->reader, STDIN_FILENO);
-	close(in->reader);
-	dup2(out->writer, STDOUT_FILENO);
-	close(out->writer);
+	if (in != NULL)
+		dup2(in->reader, STDIN_FILENO);
+		close(in->reader);
+	}
+	if (out != NULL) {
+		dup2(out->writer, STDOUT_FILENO);
+		close(out->writer);
+	}
 	
 	switch(pid = fork()) {
 	case 0:
