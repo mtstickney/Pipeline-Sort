@@ -9,3 +9,5 @@ struct str_header
 };
 
 int send_string(Channel *c, const char *str);
+
+char *recv_string(Channel *c);
