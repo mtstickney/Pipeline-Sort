@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "pipe_util.h"
 
-#define NPROCS (elements+3)
+#define NPROCS (elements+2)
 
 extern char *get_name(FILE* f);
 
@@ -24,11 +24,10 @@ void close_pipe(Pipe *p)
 	close(p->writer);
 }
 
-int begin(char *path, char  *args[], FILE *filters, unsigned int elements)
+int chain(char *path, char  *args[], FILE *filters, unsigned int elements)
 {
 	Pipe pipes[2];
 	Pipe *in, *out, *tmp;
-	pid_t pid;
 	unsigned int child;
 
 	in = &pipes[0];
@@ -44,7 +43,7 @@ int begin(char *path, char  *args[], FILE *filters, unsigned int elements)
 
 		switch(fork()) {
 		case -1:
-			return pid;
+			return -1;
 		case 0:
 			if (child > 0) {
 				dup2(in->reader, STDIN_FILENO);
