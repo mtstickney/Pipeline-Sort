@@ -1,5 +1,6 @@
 /* include list
 	unistd.h
+	stdio.h
 */
 
 typedef struct pipe {
@@ -11,5 +12,5 @@ int mk_pipe(Pipe *p);
 
 void close_pipe(Pipe *p);
 
-pid_t begin(const char *path, char *const args[], Pipe *in, Pipe *out);
+pid_t begin(char *path, char *args[], FILE *need_file_pointer_here, unsigned int elements);
 

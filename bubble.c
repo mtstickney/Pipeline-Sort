@@ -1,31 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int main()
 {
-	int c, low;
+	int c, high;
 	ssize_t ret;
+	int i;
 
-	ret = scanf("%d", &low);
-	if (ret < 1) {
-		perror("bubble main()");
+	if (scanf("%d", &high) != 1) {
+		perror("read");
 		return 1;
 	}
 
-	while (scanf("%d", &c) == 1) {
-		if (c < low) {
-			printf("%d\n", low);
-			low = c;
+	while (scanf("%d", &c) == 1 ) {
+		if (c > high) {
+			printf("%d\n", high);
+			high = c;
 		} else {
 			printf("%d\n", c);
 		}
 	}
-
-	if (!feof(stdin)) {
-		perror("bubble main()");
-		return 1;
-	}
-	
-	printf("%d\n", low);
+	printf("%d\n", high);
 	return 0;
 }
