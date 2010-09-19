@@ -1,0 +1,3 @@
+normalize bubble 
+pack justify
+    
