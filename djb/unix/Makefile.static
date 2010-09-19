@@ -1,0 +1,73 @@
+
+default: it
+
+compile: \
+warn-auto.sh conf-cc
+	( cat warn-auto.sh; \
+	echo exec "`head -1 conf-cc`" '-c $${1+"$$@"}' \
+	) > compile
+	chmod 755 compile
+
+preprocess: \
+warn-auto.sh conf-cc
+	( cat warn-auto.sh; \
+	echo exec "`head -1 conf-cc`" '-E $${1+"$$@"}' \
+	) > preprocess
+	chmod 755 preprocess
+
+load: \
+warn-auto.sh conf-ld
+	( cat warn-auto.sh; \
+	echo 'main="$$1"; shift'; \
+	echo exec "`head -1 conf-ld`" \
+	'-o "$$main" "$$main".o $${1+"$$@"}' \
+	) > load
+	chmod 755 load
+
+makelib: \
+warn-auto.sh systype
+	( cat warn-auto.sh; \
+	echo 'main="$$1"; shift'; \
+	echo 'rm -f "$$main"'; \
+	echo 'ar cr "$$main" $${1+"$$@"}'; \
+	case "`cat systype`" in \
+	sunos-5.*) ;; \
+	unix_sv*) ;; \
+	irix64-*) ;; \
+	irix-*) ;; \
+	dgux-*) ;; \
+	hp-ux-*) ;; \
+	sco*) ;; \
+	*) echo 'ranlib "$$main"' ;; \
+	esac \
+	) > makelib
+	chmod 755 makelib
+
+choose: \
+warn-auto.sh choose.sh
+	cat warn-auto.sh choose.sh \
+	> choose
+	chmod 755 choose
+
+systype: \
+find-systype.sh conf-cc conf-ld trycpp.c x86cpuid.c
+	( cat warn-auto.sh; \
+	echo CC=\'`head -1 conf-cc`\'; \
+	echo LD=\'`head -1 conf-ld`\'; \
+	cat find-systype.sh; \
+	) | sh > systype
+
+clean:
+	rm -f `cat TARGETS`
+
+iopause.h: \
+choose compile load trypoll.c iopause.h1 iopause.h2
+	./choose clr trypoll iopause.h1 iopause.h2 > iopause.h
+
+uint32.h: \
+preprocess tryulong.c uint32.h1 uint32.h2
+	if test `./preprocess tryulong.c | tail -1` -eq 32; then cat uint32.h2; else cat uint32.h1; fi > uint32.h
+
+uint64.h: \
+preprocess tryulong.c uint64.h1 uint64.h2
+	if test `./preprocess tryulong.c | tail -1` -eq 64; then cat uint64.h2; else cat uint64.h1; fi > uint64.h

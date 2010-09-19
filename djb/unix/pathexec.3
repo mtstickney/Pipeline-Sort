@@ -1,0 +1,14 @@
+.TH pathexec 3
+.SH NAME
+pathexec \- search for and run a program
+.SH SYNTAX
+.B #include <pathexec.h>
+
+pathexec(const char** \fBargv\fR);
+.SH DESCRIPTION
+
+pathexec calls pathexec_run with program name \fIargv\fR[0], arguments
+\fIargv\fR, and the same environment as the current process, modified as
+described below.  pathexec has the same return behavior as pathexec_run.
+.SH "SEE ALSO"
+execve(2), pathexec_run(3), pathexec_env(3)

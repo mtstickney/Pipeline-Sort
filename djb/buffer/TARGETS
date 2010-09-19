@@ -1,0 +1,16 @@
+systype
+makelib
+compile
+buffer.o
+buffer_1.o
+buffer_2.o
+buffer_copy.o
+buffer_get.o
+buffer_put.o
+strerr_die.o
+strerr_sys.o
+buffer.a
+default
+it
+clean
+buffer_0.o

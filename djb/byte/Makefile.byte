@@ -1,0 +1,165 @@
+byte.a: \
+makelib byte_chr.o byte_copy.o byte_cr.o byte_diff.o byte_zero.o \
+case_diffb.o case_diffs.o case_lowerb.o case_lowers.o case_starts.o \
+case_diffs.o fmt_ulong.o ip4_fmt.o ip4_scan.o scan_ulong.o \
+str_chr.o str_diff.o str_len.o str_rchr.o str_start.o uint16_pack.o \
+uint16_unpack.o uint32_pack.o uint32_unpack.o ip6_fmt.o ip6_scan.o \
+scan_0x.o fmt_xlong.o str_cpy.o str_diffn.o scan_8long.o fmt_str.o \
+fmt_uint.o fmt_uint0.o scan_sign.o scan_long.o fmt_strn.o
+	./makelib byte.a byte_chr.o byte_copy.o byte_cr.o \
+	byte_diff.o byte_zero.o case_diffb.o case_diffs.o \
+	case_lowerb.o case_lowers.o case_starts.o case_diffs.o \
+	fmt_ulong.o ip4_fmt.o ip4_scan.o scan_ulong.o str_chr.o str_diff.o \
+	str_len.o str_rchr.o str_start.o uint16_pack.o uint16_unpack.o \
+	uint32_pack.o uint32_unpack.o ip6_fmt.o ip6_scan.o scan_0x.o \
+	fmt_xlong.o str_cpy.o str_diffn.o scan_8long.o fmt_str.o \
+	fmt_uint.o fmt_uint0.o scan_sign.o scan_long.o fmt_strn.o
+
+byte_chr.o: \
+compile byte_chr.c byte.h
+	./compile byte_chr.c
+
+byte_rchr.o: \
+compile byte_rchr.c byte.h
+	./compile byte_rchr.c
+
+byte_copy.o: \
+compile byte_copy.c byte.h
+	./compile byte_copy.c
+
+byte_cr.o: \
+compile byte_cr.c byte.h
+	./compile byte_cr.c
+
+byte_diff.o: \
+compile byte_diff.c byte.h
+	./compile byte_diff.c
+
+byte_zero.o: \
+compile byte_zero.c byte.h
+	./compile byte_zero.c
+
+case_starts.o: \
+compile case_starts.c case.h
+	./compile case_starts.c
+
+case_diffb.o: \
+compile case_diffb.c case.h
+	./compile case_diffb.c
+
+case_diffs.o: \
+compile case_diffs.c case.h
+	./compile case_diffs.c
+
+case_lowerb.o: \
+compile case_lowerb.c case.h
+	./compile case_lowerb.c
+
+case_lowers.o: \
+compile case_lowers.c case.h
+	./compile case_lowers.c
+
+fmt_ulong.o: \
+compile fmt_ulong.c fmt.h
+	./compile fmt_ulong.c
+
+fmt_xlong.o: \
+compile fmt_xlong.c fmt.h
+	./compile fmt_xlong.c
+
+fmt_str.o: \
+compile fmt_str.c fmt.h
+	./compile fmt_str.c
+
+fmt_strn.o: \
+compile fmt_strn.c fmt.h
+	./compile fmt_strn.c
+
+fmt_uint.o: \
+compile fmt_uint.c fmt.h
+	./compile fmt_uint.c
+
+fmt_uint0.o: \
+compile fmt_uint0.c fmt.h
+	./compile fmt_uint0.c
+
+ip4_fmt.o: \
+compile ip4_fmt.c fmt.h ip4.h
+	./compile ip4_fmt.c
+
+ip6_fmt.o: \
+compile ip6_fmt.c fmt.h ip6.h ip4.h
+	./compile ip6_fmt.c
+
+ip4_scan.o: \
+compile ip4_scan.c scan.h ip4.h
+	./compile ip4_scan.c
+
+ip6_scan.o: \
+compile ip6_scan.c scan.h ip6.h
+	./compile ip6_scan.c
+
+scan_ulong.o: \
+compile scan_ulong.c scan.h
+	./compile scan_ulong.c
+
+scan_long.o: \
+compile scan_long.c scan.h
+	./compile scan_long.c
+
+scan_8long.o: \
+compile scan_8long.c scan.h
+	./compile scan_8long.c
+
+scan_0x.o: \
+compile scan_0x.c scan.h
+	./compile scan_0x.c
+
+scan_sign.o: \
+compile scan_sign.c scan.h
+	./compile scan_sign.c
+
+str_chr.o: \
+compile str_chr.c str.h
+	./compile str_chr.c
+
+str_cpy.o: \
+compile str_cpy.c str.h
+	./compile str_cpy.c
+
+str_diff.o: \
+compile str_diff.c str.h
+	./compile str_diff.c
+
+str_diffn.o: \
+compile str_diffn.c str.h
+	./compile str_diffn.c
+
+str_len.o: \
+compile str_len.c str.h
+	./compile str_len.c
+
+str_rchr.o: \
+compile str_rchr.c str.h
+	./compile str_rchr.c
+
+str_start.o: \
+compile str_start.c str.h
+	./compile str_start.c
+
+uint16_pack.o: \
+compile uint16_pack.c uint16.h
+	./compile uint16_pack.c
+
+uint16_unpack.o: \
+compile uint16_unpack.c uint16.h
+	./compile uint16_unpack.c
+
+uint32_pack.o: \
+compile uint32_pack.c uint32.h
+	./compile uint32_pack.c
+
+uint32_unpack.o: \
+compile uint32_unpack.c uint32.h
+	./compile uint32_unpack.c
+

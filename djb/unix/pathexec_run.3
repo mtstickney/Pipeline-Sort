@@ -1,0 +1,49 @@
+.TH pathexec_run 3
+.SH NAME
+pathexec_run \- search for and run a program
+.SH SYNTAX
+.B #include <pathexec.h>
+
+pathexec_run(const char* \fBprogram\fR, const char** \fBargv\fR,
+	     const char **\fBenv\fR);
+.SH DESCRIPTION
+pathexec_run searches for a program named \fBprogram\fR. It replaces the
+current process with a copy of that program. The main function in that
+program will be given the arguments \fBargv\fR and environment
+\fBenv\fR.
+
+pathexec_run looks for \fIprogram\fR as specified by the $PATH
+environment variable.  $PATH is a colon-separated list of directories
+\fId\fR; pathexec_run tries execve on files named \fId\fR/\fIprogram\fR,
+in the order that the directories appear inside $PATH. An empty
+directory name is treated as a single dot.
+
+If $PATH is not set, pathexec_run uses the path /bin:/usr/bin; i.e., it
+tries execve on /bin/\fIprogram\fR, then /usr/bin/\fIprogram\fR.
+
+If \fIprogram\fR contains a slash, pathexec_run ignores $PATH and simply
+runs execve on a file named \fIprogram\fR.
+
+Normally pathexec_run does not return, because the process has been
+replaced. However, if all the execve attempts fail, pathexec_run
+returns, setting errno to the most interesting error returned by execve.
+Furthermore, pathexec_run returns immediately if an execve attempt fails
+with an error other than error_noent, error_acces, error_perm, or
+error_isdir. This list is subject to change.
+.SH "COMPATIBILITY NOTES"
+pathexec is intended as a replacement for execvp. It is also intended as
+a replacement for setenv, putenv, and unsetenv in programs that are
+merely setting up a post-exec environment.
+
+execvp runs sh manually if execve returns an executable-format error.
+pathexec_run doesn't; it relies on the kernel to decide how to run
+programs.
+
+execvp pauses and tries again later if execve returns an executable-busy
+error. pathexec_run doesn't; the caller must handle temporary failures
+properly.
+
+Some versions of execvp use .:/bin:/usr/bin as the default path. Some
+versions of execvp use /bin:/usr/bin:. as the default path.
+.SH "SEE ALSO"
+execve(2), pathexec(3), pathexec_env(3)

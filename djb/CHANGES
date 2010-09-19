@@ -1,0 +1,62 @@
+Tue Oct 10 14:21:34 CEST 2000
+	Added socket_sendfile, socket_getifidx
+	Fixed haven2i.c to work with broken BSD includes
+
+Thu Sep  7 15:35:20 CEST 2000
+	Oops, some uint32.h dependencies were missing.
+	I didn't notice because I have a copy in /usr/local/include.
+	Also, unix.a referenced but did not include error_temp.o.
+	Thanks for OHIRA, Shinya for telling me!
+
+Tue Sep  5 19:03:45 CEST 2000
+	Added test for if_nameindex.  socket_getifname always returns
+	  "[unknown]" if the test failed.
+	Added "L" flag to choose.sh like "l" but also meaning
+	  "link against `cat $5.lib`, too".  It is meant for socket.lib.
+	Added scope_id IPv6 API.  scope_id is zero most of the time, but
+	  it specifies the interface for link-local addresses.
+	Added socket_getifname to get a string representation for an
+	  network interface index or IPv6 scope_id.
+	Added a few man pages for socket_* calls (not done yet).
+
+Sun Jul 30 04:47:41 CEST 2000
+	changed test from == to -eq (portability)
+
+Tue Jul 18 17:44:05 CEST 2000
+	dns_ip6 will no longer do IPv4 lookups on IPv6 IPs
+
+Thu Jul 13 00:59:16 CEST 2000
+	wrote man pages for pathexec, pathexec_run and pathexec_env
+
+Wed Jul 12 01:34:47 CEST 2000
+	wrote man pages for uint16* and uint32*
+	wrote man pages for scan_* and fmt_*
+	imported scan_long and scan_plusminus from mess822
+	imported scan_8long from ezmlm
+	imported fmt_uint0, fmt_str and fmt_uint from ezmlm
+	replaced my fmt_xlong with the djb one from publicfile
+	wrote man pages for byte_*
+	wrote man pages for ip[46]_scan and ip[46]_fmt
+	imported stralloc_starts from ezmlm
+	imported fmt_strn from qmail
+	wrote timeoutaccept and timeoutaccept6 using iopause
+	  (the only djb implementation I found is from publicfile and
+	   uses select instead of iopause)
+	ip6_fmt now does not write \0 behind the output.
+	ip6_fmt no longer writes anything if dest is FMT_LEN.
+
+Sun Jul  2 16:40:08 CEST 2000
+	added ./preprocess in the spirit of ./compile and ./load
+	changed uint64.h test to work when cross-compiling
+	changed uint32.h test to work when cross-compiling
+	fixed trypoll dependencies to include load
+
+Sat Jul  1 16:39:27 CEST 2000
+	converted K&R prototypes to ANSI C
+	added const to arguments where applicable
+	added close() prototype to readwrite.h
+	added my helper functions byte_dup() and str_dup() in alloc
+
+Mon Jun 19 14:58:58 CEST 2000
+	fixed ipv6 check to work under BSD and Solaris
+	added workaround for renamed IPv6 multicast #defines

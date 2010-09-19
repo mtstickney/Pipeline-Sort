@@ -1,0 +1,17 @@
+.TH pathexec_env 3
+.SH NAME
+pathexec_env \- modify environment for pathexec
+.SH SYNTAX
+.B #include <pathexec.h>
+
+pathexec_env(const char* \fBkey\fR,const char* \fBvalue\fR);
+.SH DESCRIPTION
+pathexec_env modifies the environment used by pathexec. It removes a
+variable named \fIkey\fR, if one exists. It then adds a variable named
+\fIkey\fR with value \fIvalue\fR, if the pointer \fIvalue\fR is nonzero.
+The name \fIkey\fR must not contain =.
+
+Normally pathexec_env returns 1. If it is unable to allocate memory, it
+returns 0, leaving the pathexec environment alone.
+.SH "SEE ALSO"
+execve(2), pathexec_run(3), pathexec(3)

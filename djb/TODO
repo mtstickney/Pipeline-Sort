@@ -1,0 +1,5 @@
+fix prototypes timeout/*.h
+add man pages: str_*, stralloc, buffer, socket_*, timeout* and the rest
+	of unix/*
+think about a portable interface for passing file descriptors
+add an alloca based stralloc that does not grow
