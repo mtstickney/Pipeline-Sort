@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <signal.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -60,9 +61,12 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	args[0] = name;
-	begin(name, args, filters, elements);
+	if (chain(name, args, filters, elements) != 0) {
+		killpg(getpgid(0), SIGTERM);
+		return 1;
+	}
 	
-	for (i=0; i<elements+3; i++) {
+	for (i=0; i<elements+2; i++) {
 		wait(NULL);
 	}
 
